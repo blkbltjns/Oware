@@ -9,14 +9,14 @@ namespace Mike.Oware.Engine
 {
     internal class BoardState : List<int>
     {
-        internal BoardState(int capacity)
+        internal BoardState(int numberOfPits)
         {
-            if (capacity % 2 != 0)
+            if (numberOfPits % 2 != 0)
             {
-                throw new ArgumentException("Capacity must be divisible by 2 to be a valid board!");
+                throw new ArgumentException("Number of pits must be divisible by 2 to be a valid board!");
             }
 
-            for (int i = 0; i < capacity; i++)
+            for (int i = 0; i < numberOfPits; i++)
             {
                 this.Add(0);
             }
