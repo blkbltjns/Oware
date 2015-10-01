@@ -20,7 +20,7 @@ namespace Mike.Oware.Engine
             var currentBoard = BoardState.CreateBoard(state, _gameConfiguration, IsHome);
             DebugPrintBoard(currentBoard, 0);
 
-            var successors = GenerateSuccessors(currentBoard, IsHome);
+            var successors = GenerateSuccessors(currentBoard);
             foreach (var successor in successors)
             {
                 DebugPrintBoard(successor, 1);
@@ -29,7 +29,7 @@ namespace Mike.Oware.Engine
             throw new NotImplementedException();
         }
 
-        private IEnumerable<BoardState> GenerateSuccessors(BoardState currentBoard, bool isHome)
+        private IEnumerable<BoardState> GenerateSuccessors(BoardState currentBoard)
         {
             for (var pit = 0; pit < _gameConfiguration.NumberOfPits/2; pit++)
             {
@@ -52,10 +52,10 @@ namespace Mike.Oware.Engine
         private BoardState Play(BoardState currentBoard, int pit)
         {
             var copyOfBoard = currentBoard.CreateCopy();
-            var leftToDistribute = copyOfBoard[pit];
+            var stonesToDistribute = copyOfBoard[pit];
             copyOfBoard[pit] = 0;
 
-            while (leftToDistribute > 0)
+            while (stonesToDistribute > 0)
             {
                 if (pit < currentBoard.Count)
                 {
@@ -66,7 +66,7 @@ namespace Mike.Oware.Engine
                     pit = 0;
                 }
                 copyOfBoard[pit]++;
-                leftToDistribute--;
+                stonesToDistribute--;
             }
             return copyOfBoard;
         }
